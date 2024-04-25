@@ -3,17 +3,14 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    npmlock2nix = {
-      url = "github:nix-community/npmlock2nix";
-      flake = false;
-    };
+    npm.url = "github:adisbladis/buildNodeModules";
+    npm.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, npmlock2nix, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, npm }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        npm2nix = import npmlock2nix { inherit pkgs; };
         buildSqls = { arch, os }: with pkgs; (buildGoModule {
           name = "sqls_${arch}_${os}";
           src = fetchFromGitHub {
@@ -43,7 +40,10 @@
         formatter = pkgs.nixpkgs-fmt;
         packages = {
           inherit sqls;
-          default = pkgs.callPackage ./. { inherit sqls npm2nix; };
+          default = pkgs.callPackage ./. {
+            inherit sqls;
+            buildNodeModules = npm.lib.${system};
+          };
         };
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [

@@ -31,19 +31,23 @@
         "type": "github"
       }
     },
-    "npmlock2nix": {
-      "flake": false,
+    "npm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1673447413,
-        "narHash": "sha256-sJM82Sj8yfQYs9axEmGZ9Evzdv/kDcI9sddqJ45frrU=",
-        "owner": "nix-community",
-        "repo": "npmlock2nix",
-        "rev": "9197bbf397d76059a76310523d45df10d2e4ca81",
+        "lastModified": 1707354861,
+        "narHash": "sha256-L10H5hh9S6y20c7AKuKJ2h9BczODqpTCoGEZBDPJhd0=",
+        "owner": "adisbladis",
+        "repo": "buildNodeModules",
+        "rev": "76c7c56dd9dcea355a8e2ebd0f228a8f2d1e1ee8",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "npmlock2nix",
+        "owner": "adisbladis",
+        "repo": "buildNodeModules",
         "type": "github"
       }
     },
@@ -51,7 +55,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "npmlock2nix": "npmlock2nix"
+        "npm": "npm"
       }
     }
   },
